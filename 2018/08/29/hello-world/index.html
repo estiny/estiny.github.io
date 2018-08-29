@@ -8,22 +8,22 @@
   
   <title>My blog | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="�ҵ�С���ͣ�">
+  <meta name="description" content="server.port=8081spring.profiles.active=dev master.datasource.type=com.alibaba.druid.pool.DruidDataSourcemaster.datasource.driver-class-name=com.mysql.jdbc.Drivermaster.datasource.url=jdbc:mysql://loca">
 <meta property="og:type" content="article">
 <meta property="og:title" content="My blog">
 <meta property="og:url" content="https://estiny.github.io/2018/08/29/hello-world/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="�ҵ�С���ͣ�">
+<meta property="og:description" content="server.port=8081spring.profiles.active=dev master.datasource.type=com.alibaba.druid.pool.DruidDataSourcemaster.datasource.driver-class-name=com.mysql.jdbc.Drivermaster.datasource.url=jdbc:mysql://loca">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:updated_time" content="2018-08-29T13:52:05.946Z">
+<meta property="og:updated_time" content="2018-08-29T16:17:38.036Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="My blog">
-<meta name="twitter:description" content="�ҵ�С���ͣ�">
+<meta name="twitter:description" content="server.port=8081spring.profiles.active=dev master.datasource.type=com.alibaba.druid.pool.DruidDataSourcemaster.datasource.driver-class-name=com.mysql.jdbc.Drivermaster.datasource.url=jdbc:mysql://loca">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/rcons-user/32/male-shadow-circle-512.png">
+    <link rel="icon" href="https://avatars2.githubusercontent.com/u/29916849?s=460&v=4">
   
   
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
@@ -148,7 +148,7 @@
             </h1>
             
             <div class="is-flex align-center">
-                <img class="post-avatar" src="https://cdn2.iconfinder.com/data/icons/rcons-user/32/male-shadow-circle-512.png">
+                <img class="post-avatar" src="https://avatars2.githubusercontent.com/u/29916849?s=460&v=4">
                 <span style="padding:0 10px;"> <span class="sub-title">By</span> Nic</span>
                 <span class="post-date sub-title">at: 2018-08-29</span>
             </div>
@@ -159,7 +159,19 @@
             
         </div>
         <div class="content" style="overflow: auto">
-            <p>�ҵ�С���ͣ�</p>
+            <p>server.port=8081<br>spring.profiles.active=dev</p>
+<p>master.datasource.type=com.alibaba.druid.pool.DruidDataSource<br>master.datasource.driver-class-name=com.mysql.jdbc.Driver<br>master.datasource.url=jdbc:mysql://localhost:3306/spring?useSSL=false<br>master.datasource.username=root<br>master.datasource.password=root</p>
+<p>slave.datasource.names=slave1,slave2</p>
+<p>slave.datasource.slave1.type=com.alibaba.druid.pool.DruidDataSource<br>slave.datasource.slave1.driver-class-name=com.mysql.jdbc.Driver<br>slave.datasource.slave1.url=jdbc:mysql://localhost:3306/spring2?useSSL=false<br>slave.datasource.slave1.username=root<br>slave.datasource.slave1.password=root</p>
+<p>slave.datasource.slave2.type=com.alibaba.druid.pool.DruidDataSource<br>slave.datasource.slave2.driver-class-name=com.mysql.jdbc.Driver<br>slave.datasource.slave2.url=jdbc:mysql://localhost:3306/spring2?useSSL=false<br>slave.datasource.slave2.username=root<br>slave.datasource.slave2.password=root</p>
+<h1 id="下面为连接池的补充设置，应用到上面所有数据源中"><a href="#下面为连接池的补充设置，应用到上面所有数据源中" class="headerlink" title="下面为连接池的补充设置，应用到上面所有数据源中"></a>下面为连接池的补充设置，应用到上面所有数据源中</h1><h1 id="初始化大小，最小，最大"><a href="#初始化大小，最小，最大" class="headerlink" title="初始化大小，最小，最大"></a>初始化大小，最小，最大</h1><p>druid.initialSize=5<br>druid.minIdle=5<br>druid.maxActive=20</p>
+<h1 id="配置获取连接等待超时的时间"><a href="#配置获取连接等待超时的时间" class="headerlink" title="配置获取连接等待超时的时间"></a>配置获取连接等待超时的时间</h1><p>druid.maxWait=60000</p>
+<h1 id="配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒"><a href="#配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒" class="headerlink" title="配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒"></a>配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒</h1><p>druid.timeBetweenEvictionRunsMillis=60000</p>
+<h1 id="配置一个连接在池中最小生存的时间，单位是毫秒"><a href="#配置一个连接在池中最小生存的时间，单位是毫秒" class="headerlink" title="配置一个连接在池中最小生存的时间，单位是毫秒"></a>配置一个连接在池中最小生存的时间，单位是毫秒</h1><p>druid.minEvictableIdleTimeMillis=300000<br>druid.validationQuery=SELECT 1 FROM DUAL<br>druid.testWhileIdle=true<br>druid.testOnBorrow=false<br>druid.testOnReturn=false</p>
+<h1 id="打开PSCache，并且指定每个连接上PSCache的大小"><a href="#打开PSCache，并且指定每个连接上PSCache的大小" class="headerlink" title="打开PSCache，并且指定每个连接上PSCache的大小"></a>打开PSCache，并且指定每个连接上PSCache的大小</h1><p>druid.poolPreparedStatements=true<br>druid.maxPoolPreparedStatementPerConnectionSize=20</p>
+<h1 id="配置监控统计拦截的filters，去掉后监控界面sql无法统计，’wall’用于防火墙"><a href="#配置监控统计拦截的filters，去掉后监控界面sql无法统计，’wall’用于防火墙" class="headerlink" title="配置监控统计拦截的filters，去掉后监控界面sql无法统计，’wall’用于防火墙"></a>配置监控统计拦截的filters，去掉后监控界面sql无法统计，’wall’用于防火墙</h1><p>druid.filters=stat,wall,log4j</p>
+<h1 id="通过connectProperties属性来打开mergeSql功能；慢SQL记录"><a href="#通过connectProperties属性来打开mergeSql功能；慢SQL记录" class="headerlink" title="通过connectProperties属性来打开mergeSql功能；慢SQL记录"></a>通过connectProperties属性来打开mergeSql功能；慢SQL记录</h1><p>druid.connectionProperties=druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000</p>
+<h1 id="合并多个DruidDataSource的监控数据"><a href="#合并多个DruidDataSource的监控数据" class="headerlink" title="合并多个DruidDataSource的监控数据"></a>合并多个DruidDataSource的监控数据</h1><p>#druid.useGlobalDataSourceStat=true</p>
 
         </div>
         <div class="post-reply">
@@ -202,12 +214,7 @@
   <div class="container has-padding">
     <div>
       <div>
-        <!--请您保留作者署名, 主题制作来之不易-->
-        Theme by <a href="http://haojen.github.io/">Haojen Ma</a>
-        <br>
         Copyright © Nic 2018
-        <br>
-        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
       </div>
     </div>
   </div>
