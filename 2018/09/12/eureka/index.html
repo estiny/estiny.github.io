@@ -8,22 +8,22 @@
   
   <title>SpringCloud之服务的注册与发现Eureka | nic`s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、创建服务注册中心1.1 首先创建一个maven主工程。首先创建一个主Maven工程，在其pom文件引入依赖，spring Boot版本为2.0.3.RELEASE，Spring Cloud版本为Finchley.RELEASE &amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt; &amp;lt;project xmlns=&amp;">
+  <meta name="description" content="一、Eureka简介Eureka是Spring Cloud Netflix微服务套件中的一部分，可以与Springboot构建的微服务很容易的整合起来。Eureka包含了服务器端和客户端组件。服务器端，也被称作是服务注册中心，用于提供服务的注册与发现。Eureka支持高可用的配置，当集群中有分片出现故障时，Eureka就会转入自动保护模式，它允许分片故障期间继续提供服务的发现和注册，当故障分片恢复">
 <meta name="keywords" content="SpringCloud">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringCloud之服务的注册与发现Eureka">
 <meta property="og:url" content="https://estiny.github.io/2018/09/12/eureka/index.html">
 <meta property="og:site_name" content="nic`s blog">
-<meta property="og:description" content="一、创建服务注册中心1.1 首先创建一个maven主工程。首先创建一个主Maven工程，在其pom文件引入依赖，spring Boot版本为2.0.3.RELEASE，Spring Cloud版本为Finchley.RELEASE &amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt; &amp;lt;project xmlns=&amp;">
+<meta property="og:description" content="一、Eureka简介Eureka是Spring Cloud Netflix微服务套件中的一部分，可以与Springboot构建的微服务很容易的整合起来。Eureka包含了服务器端和客户端组件。服务器端，也被称作是服务注册中心，用于提供服务的注册与发现。Eureka支持高可用的配置，当集群中有分片出现故障时，Eureka就会转入自动保护模式，它允许分片故障期间继续提供服务的发现和注册，当故障分片恢复">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.imgur.com/Vrtv6wb.png">
 <meta property="og:image" content="https://i.imgur.com/uh7FgUL.png">
 <meta property="og:image" content="https://i.imgur.com/xL56lZB.png">
 <meta property="og:image" content="https://i.imgur.com/Fthz9y6.png">
-<meta property="og:updated_time" content="2018-09-12T14:40:35.986Z">
+<meta property="og:updated_time" content="2018-09-12T14:45:23.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringCloud之服务的注册与发现Eureka">
-<meta name="twitter:description" content="一、创建服务注册中心1.1 首先创建一个maven主工程。首先创建一个主Maven工程，在其pom文件引入依赖，spring Boot版本为2.0.3.RELEASE，Spring Cloud版本为Finchley.RELEASE &amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt; &amp;lt;project xmlns=&amp;">
+<meta name="twitter:description" content="一、Eureka简介Eureka是Spring Cloud Netflix微服务套件中的一部分，可以与Springboot构建的微服务很容易的整合起来。Eureka包含了服务器端和客户端组件。服务器端，也被称作是服务注册中心，用于提供服务的注册与发现。Eureka支持高可用的配置，当集群中有分片出现故障时，Eureka就会转入自动保护模式，它允许分片故障期间继续提供服务的发现和注册，当故障分片恢复">
 <meta name="twitter:image" content="https://i.imgur.com/Vrtv6wb.png">
   
     <link rel="alternate" href="/atom.xml" title="nic`s blog" type="application/atom+xml">
@@ -159,7 +159,8 @@
             
         </div>
         <div class="content" style="overflow: auto">
-            <h1 id="一、创建服务注册中心"><a href="#一、创建服务注册中心" class="headerlink" title="一、创建服务注册中心"></a>一、创建服务注册中心</h1><h5 id="1-1-首先创建一个maven主工程。"><a href="#1-1-首先创建一个maven主工程。" class="headerlink" title="1.1 首先创建一个maven主工程。"></a>1.1 首先创建一个maven主工程。</h5><p>首先创建一个主Maven工程，在其pom文件引入依赖，spring Boot版本为2.0.3.RELEASE，Spring Cloud版本为Finchley.RELEASE</p>
+            <h1 id="一、Eureka简介"><a href="#一、Eureka简介" class="headerlink" title="一、Eureka简介"></a>一、Eureka简介</h1><p>Eureka是Spring Cloud Netflix微服务套件中的一部分，可以与Springboot构建的微服务很容易的整合起来。<br>Eureka包含了服务器端和客户端组件。服务器端，也被称作是服务注册中心，用于提供服务的注册与发现。Eureka支持高可用的配置，当集群中有分片出现故障时，Eureka就会转入自动保护模式，它允许分片故障期间继续提供服务的发现和注册，当故障分片恢复正常时，集群中其他分片会把他们的状态再次同步回来。<br>客户端组件包含服务消费者与服务生产者。在应用程序运行时，Eureka客户端向注册中心注册自身提供的服务并周期性的发送心跳来更新它的服务租约。同时也可以从服务端查询当前注册的服务信息并把他们缓存到本地并周期性的刷新服务状态。</p>
+<h1 id="二、创建服务注册中心"><a href="#二、创建服务注册中心" class="headerlink" title="二、创建服务注册中心"></a>二、创建服务注册中心</h1><h3 id="2-1-首先创建一个maven主工程。"><a href="#2-1-首先创建一个maven主工程。" class="headerlink" title="2.1 首先创建一个maven主工程。"></a>2.1 首先创建一个maven主工程。</h3><p>首先创建一个主Maven工程，在其pom文件引入依赖，spring Boot版本为2.0.3.RELEASE，Spring Cloud版本为Finchley.RELEASE</p>
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
          xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
@@ -228,7 +229,7 @@
     &lt;/build&gt;
 
 &lt;/project&gt;
-</code></pre><h5 id="1-2-然后创建2个model工程-一个model工程作为服务注册中心，即Eureka-Server-另一个作为Eureka-Client。"><a href="#1-2-然后创建2个model工程-一个model工程作为服务注册中心，即Eureka-Server-另一个作为Eureka-Client。" class="headerlink" title="1.2 然后创建2个model工程:一个model工程作为服务注册中心，即Eureka Server,另一个作为Eureka Client。"></a>1.2 然后创建2个model工程:一个model工程作为服务注册中心，即Eureka Server,另一个作为Eureka Client。</h5><p>创建完后的工程，其pom.xml继承了父pom文件，并引入spring-cloud-starter-netflix-eureka-server的依赖，代码如下：</p>
+</code></pre><h3 id="2-2-然后创建2个model工程-一个model工程作为服务注册中心，即Eureka-Server-另一个作为Eureka-Client。"><a href="#2-2-然后创建2个model工程-一个model工程作为服务注册中心，即Eureka-Server-另一个作为Eureka-Client。" class="headerlink" title="2.2 然后创建2个model工程:一个model工程作为服务注册中心，即Eureka Server,另一个作为Eureka Client。"></a>2.2 然后创建2个model工程:一个model工程作为服务注册中心，即Eureka Server,另一个作为Eureka Client。</h3><p>创建完后的工程，其pom.xml继承了父pom文件，并引入spring-cloud-starter-netflix-eureka-server的依赖，代码如下：</p>
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
          xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
@@ -249,7 +250,7 @@
         &lt;/dependency&gt;
     &lt;/dependencies&gt;
 &lt;/project&gt;
-</code></pre><h5 id="1-3-启动一个服务注册中心，只需要一个注解-EnableEurekaServer，这个注解需要在springboot工程的启动application类上加："><a href="#1-3-启动一个服务注册中心，只需要一个注解-EnableEurekaServer，这个注解需要在springboot工程的启动application类上加：" class="headerlink" title="1.3 启动一个服务注册中心，只需要一个注解@EnableEurekaServer，这个注解需要在springboot工程的启动application类上加："></a>1.3 启动一个服务注册中心，只需要一个注解@EnableEurekaServer，这个注解需要在springboot工程的启动application类上加：</h5><pre><code>import org.springframework.boot.SpringApplication;
+</code></pre><h3 id="2-3-启动一个服务注册中心，只需要一个注解-EnableEurekaServer，这个注解需要在springboot工程的启动application类上加："><a href="#2-3-启动一个服务注册中心，只需要一个注解-EnableEurekaServer，这个注解需要在springboot工程的启动application类上加：" class="headerlink" title="2.3 启动一个服务注册中心，只需要一个注解@EnableEurekaServer，这个注解需要在springboot工程的启动application类上加："></a>2.3 启动一个服务注册中心，只需要一个注解@EnableEurekaServer，这个注解需要在springboot工程的启动application类上加：</h3><pre><code>import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
@@ -261,7 +262,7 @@ public class EurekaServerApplication {
         SpringApplication.run( EurekaServerApplication.class, args );
     }
 }
-</code></pre><h5 id="1-4-eureka是一个高可用的组件，它没有后端缓存，每一个实例注册之后需要向注册中心发送心跳（因此可以在内存中完成），在默认情况下erureka-server也是一个eureka-client-必须要指定一个-server。eureka-server的配置文件appication-yaml："><a href="#1-4-eureka是一个高可用的组件，它没有后端缓存，每一个实例注册之后需要向注册中心发送心跳（因此可以在内存中完成），在默认情况下erureka-server也是一个eureka-client-必须要指定一个-server。eureka-server的配置文件appication-yaml：" class="headerlink" title="1.4 eureka是一个高可用的组件，它没有后端缓存，每一个实例注册之后需要向注册中心发送心跳（因此可以在内存中完成），在默认情况下erureka server也是一个eureka client ,必须要指定一个 server。eureka server的配置文件appication.yaml："></a>1.4 eureka是一个高可用的组件，它没有后端缓存，每一个实例注册之后需要向注册中心发送心跳（因此可以在内存中完成），在默认情况下erureka server也是一个eureka client ,必须要指定一个 server。eureka server的配置文件appication.yaml：</h5><pre><code>server:
+</code></pre><h3 id="2-4-eureka是一个高可用的组件，它没有后端缓存，每一个实例注册之后需要向注册中心发送心跳（因此可以在内存中完成），在默认情况下erureka-server也是一个eureka-client-必须要指定一个-server。eureka-server的配置文件appication-yaml："><a href="#2-4-eureka是一个高可用的组件，它没有后端缓存，每一个实例注册之后需要向注册中心发送心跳（因此可以在内存中完成），在默认情况下erureka-server也是一个eureka-client-必须要指定一个-server。eureka-server的配置文件appication-yaml：" class="headerlink" title="2.4 eureka是一个高可用的组件，它没有后端缓存，每一个实例注册之后需要向注册中心发送心跳（因此可以在内存中完成），在默认情况下erureka server也是一个eureka client ,必须要指定一个 server。eureka server的配置文件appication.yaml："></a>2.4 eureka是一个高可用的组件，它没有后端缓存，每一个实例注册之后需要向注册中心发送心跳（因此可以在内存中完成），在默认情况下erureka server也是一个eureka client ,必须要指定一个 server。eureka server的配置文件appication.yaml：</h3><pre><code>server:
   port: 8761
 
 eureka:
@@ -276,10 +277,10 @@ eureka:
 spring:
   application:
     name: eureka-server
-</code></pre><h5 id="1-5-启动工程-打开浏览器访问：-http-localhost-8761-界面如下："><a href="#1-5-启动工程-打开浏览器访问：-http-localhost-8761-界面如下：" class="headerlink" title="1.5 启动工程,打开浏览器访问： http://localhost:8761 ,界面如下："></a>1.5 启动工程,打开浏览器访问： <a href="http://localhost:8761" target="_blank" rel="noopener">http://localhost:8761</a> ,界面如下：</h5><p><img src="https://i.imgur.com/Vrtv6wb.png" alt=""></p>
-<h5 id="1-6-过程中遇到的坑！！！"><a href="#1-6-过程中遇到的坑！！！" class="headerlink" title="1.6  过程中遇到的坑！！！"></a>1.6  过程中遇到的坑！！！</h5><h4 id="启动项目端口一直是默认的8080，而且一直报错ClientHandlerException-java-net-ConnectException-Connection-refused-connect。"><a href="#启动项目端口一直是默认的8080，而且一直报错ClientHandlerException-java-net-ConnectException-Connection-refused-connect。" class="headerlink" title="启动项目端口一直是默认的8080，而且一直报错ClientHandlerException: java.net.ConnectException: Connection refused: connect。"></a>启动项目端口一直是默认的8080，而且一直报错ClientHandlerException: java.net.ConnectException: Connection refused: connect。</h4><p>网上查的都是在默认设置下，Eureka服务注册中心也会将自己作为客户端来尝试注册它自己，所以我们需要禁用它的客户端注册行为。<br>禁止方式如下：在application.properties配置文件中增加以下内容<br><br>eureka.client.register-with-eureka=false<br><br>eureka.client.fetch-registry=false<br><br>但是发现自己的配置文件已经配了。后来仔细想了下是应该是配置文件一直读取不到，因为端口一直是8080，折腾了半天，解决办法：<br>将resource文件夹设置为资源目录</p>
+</code></pre><h3 id="2-5-启动工程-打开浏览器访问：-http-localhost-8761-界面如下："><a href="#2-5-启动工程-打开浏览器访问：-http-localhost-8761-界面如下：" class="headerlink" title="2.5 启动工程,打开浏览器访问： http://localhost:8761 ,界面如下："></a>2.5 启动工程,打开浏览器访问： <a href="http://localhost:8761" target="_blank" rel="noopener">http://localhost:8761</a> ,界面如下：</h3><p><img src="https://i.imgur.com/Vrtv6wb.png" alt=""></p>
+<h3 id="2-6-过程中遇到的坑！！！"><a href="#2-6-过程中遇到的坑！！！" class="headerlink" title="2.6  过程中遇到的坑！！！"></a>2.6  过程中遇到的坑！！！</h3><h4 id="启动项目端口一直是默认的8080，而且一直报错ClientHandlerException-java-net-ConnectException-Connection-refused-connect。"><a href="#启动项目端口一直是默认的8080，而且一直报错ClientHandlerException-java-net-ConnectException-Connection-refused-connect。" class="headerlink" title="启动项目端口一直是默认的8080，而且一直报错ClientHandlerException: java.net.ConnectException: Connection refused: connect。"></a>启动项目端口一直是默认的8080，而且一直报错ClientHandlerException: java.net.ConnectException: Connection refused: connect。</h4><p>网上查的都是在默认设置下，Eureka服务注册中心也会将自己作为客户端来尝试注册它自己，所以我们需要禁用它的客户端注册行为。<br>禁止方式如下：在application.properties配置文件中增加以下内容<br><br>eureka.client.register-with-eureka=false<br><br>eureka.client.fetch-registry=false<br><br>但是发现自己的配置文件已经配了。后来仔细想了下是应该是配置文件一直读取不到，因为端口一直是8080，折腾了半天，解决办法：<br>将resource文件夹设置为资源目录</p>
 <p><img src="https://i.imgur.com/uh7FgUL.png" alt=""></p>
-<h1 id="二、创建一个服务提供者-eureka-client"><a href="#二、创建一个服务提供者-eureka-client" class="headerlink" title="二、创建一个服务提供者 (eureka client)"></a>二、创建一个服务提供者 (eureka client)</h1><p>当client向server注册时，它会提供一些元数据，例如主机和端口，URL，主页等。Eureka server 从每个client实例接收心跳消息。 如果心跳超时，则通常将该实例从注册server中删除。</p>
+<h1 id="三、创建一个服务提供者-eureka-client"><a href="#三、创建一个服务提供者-eureka-client" class="headerlink" title="三、创建一个服务提供者 (eureka client)"></a>三、创建一个服务提供者 (eureka client)</h1><p>当client向server注册时，它会提供一些元数据，例如主机和端口，URL，主页等。Eureka server 从每个client实例接收心跳消息。 如果心跳超时，则通常将该实例从注册server中删除。</p>
 <p>创建过程同server类似,创建完pom.xml如下：</p>
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
