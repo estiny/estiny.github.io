@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://i.imgur.com/3fs7nJf.png">
 <meta property="og:image" content="https://i.imgur.com/LUOXw1o.png">
 <meta property="og:image" content="https://i.imgur.com/pnv4TwI.png">
-<meta property="og:updated_time" content="2018-09-17T14:39:09.911Z">
+<meta property="og:updated_time" content="2018-09-17T14:43:36.718Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringCloud之负载均衡器 Ribbon原理及实现">
 <meta name="twitter:description" content="在上一篇文章，讲了服务的注册和发现。在微服务架构中，业务都会被拆分成一个独立的服务，服务与服务的通讯是基于http restful的。Spring cloud有两种服务调用方式，一种是ribbon+restTemplate，另一种是feign。在这一篇文章首先讲解下基于ribbon+rest。 一、ribbon简介分布式系统中，各个微服务会部署多个实例，如何将服务消费者均匀分摊到多个服务提供者实例">
@@ -273,17 +273,24 @@ public class HelloService {
 
 }
 </code></pre><p>写一个controller，在controller中用调用HelloService 的方法，代码如下：</p>
-<p>import com.nic.service.HelloService;<br>import org.springframework.beans.factory.annotation.Autowired;<br>import org.springframework.web.bind.annotation.GetMapping;<br>import org.springframework.web.bind.annotation.RequestParam;<br>import org.springframework.web.bind.annotation.RestController;</p>
-<p>@RestController<br>public class HelloController {</p>
-<pre><code>@Autowired
-HelloService helloService;
+<pre><code>import com.nic.service.HelloService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@GetMapping(value = &quot;/hi&quot;)
-public String hi(@RequestParam String name) {
-    return helloService.hiService( name );
+@RestController
+public class HelloController {
+
+    @Autowired
+    HelloService helloService;
+
+    @GetMapping(value = &quot;/hi&quot;)
+    public String hi(@RequestParam String name) {
+        return helloService.hiService( name );
+    }
 }
-</code></pre><p>}</p>
-<p>启动服务访问<a href="http://localhost:8761" target="_blank" rel="noopener">http://localhost:8761</a>  可以看到服务注册中心Eureka又多了一个服务server-ribbon</p>
+</code></pre><p>启动服务访问<a href="http://localhost:8761" target="_blank" rel="noopener">http://localhost:8761</a>  可以看到服务注册中心Eureka又多了一个服务server-ribbon</p>
 <p><img src="https://i.imgur.com/LUOXw1o.png" alt=""></p>
 <p>然后在浏览器上多次访问<a href="http://localhost:8764/hi?name=forezp" target="_blank" rel="noopener">http://localhost:8764/hi?name=forezp</a>，浏览器交替显示：</p>
 <blockquote>
