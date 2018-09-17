@@ -18,10 +18,8 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.imgur.com/3fs7nJf.png">
 <meta property="og:image" content="https://i.imgur.com/LUOXw1o.png">
-<meta property="og:image" content="https://i.imgur.com/sqkKktw.png">
-<meta property="og:image" content="https://i.imgur.com/GfeKpS5.png">
 <meta property="og:image" content="https://i.imgur.com/pnv4TwI.png">
-<meta property="og:updated_time" content="2018-09-17T14:33:30.639Z">
+<meta property="og:updated_time" content="2018-09-17T14:39:09.911Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringCloud之负载均衡器 Ribbon原理及实现">
 <meta name="twitter:description" content="在上一篇文章，讲了服务的注册和发现。在微服务架构中，业务都会被拆分成一个独立的服务，服务与服务的通讯是基于http restful的。Spring cloud有两种服务调用方式，一种是ribbon+restTemplate，另一种是feign。在这一篇文章首先讲解下基于ribbon+rest。 一、ribbon简介分布式系统中，各个微服务会部署多个实例，如何将服务消费者均匀分摊到多个服务提供者实例">
@@ -222,7 +220,7 @@
         &lt;/dependencies&gt;
     &lt;/dependencyManagement&gt;
 &lt;/project&gt;
-</code></pre><p>在工程的配置文件指定服务的注册中心地址为<br>    <a href="http://localhost:8761/eureka/，程序名称为" target="_blank" rel="noopener">http://localhost:8761/eureka/，程序名称为</a> service-ribbon，程序端口为8764。配置文件application.yml如下：</p>
+</code></pre><p>在工程的配置文件指定服务的注册中心地址为<code>http://localhost:8761/eureka/</code>，程序名称为 service-ribbon，程序端口为8764。配置文件application.yml如下：</p>
 <pre><code>eureka:
   client:
     serviceUrl:
@@ -288,9 +286,10 @@ public String hi(@RequestParam String name) {
 <p>启动服务访问<a href="http://localhost:8761" target="_blank" rel="noopener">http://localhost:8761</a>  可以看到服务注册中心Eureka又多了一个服务server-ribbon</p>
 <p><img src="https://i.imgur.com/LUOXw1o.png" alt=""></p>
 <p>然后在浏览器上多次访问<a href="http://localhost:8764/hi?name=forezp" target="_blank" rel="noopener">http://localhost:8764/hi?name=forezp</a>，浏览器交替显示：</p>
-<p><img src="https://i.imgur.com/sqkKktw.png" alt=""></p>
-<p><img src="https://i.imgur.com/GfeKpS5.png" alt=""></p>
-<p>这说明当我们通过调用<br>    restTemplate.getForObject(“<a href="http://SERVICE-HI/hi?name=&quot;+name,String.class" target="_blank" rel="noopener">http://SERVICE-HI/hi?name=&quot;+name,String.class</a>) 方法时，已经做了负载均衡，访问了不同的端口的服务实例。</p>
+<blockquote>
+<p>hi forezp ,i am from port:8762<br><br>hi forezp ,i am from port:8763</p>
+</blockquote>
+<p>这说明当我们通过调用<code>restTemplate.getForObject(&quot;http://SERVICE-HI/hi?name=&quot;+name,String.class)</code> 方法时，已经做了负载均衡，访问了不同的端口的服务实例。</p>
 <h1 id="四、此时的架构"><a href="#四、此时的架构" class="headerlink" title="四、此时的架构"></a>四、此时的架构</h1><p><img src="https://i.imgur.com/pnv4TwI.png" alt=""></p>
 <ul>
 <li>一个服务注册中心，eureka server,端口为8761</li>
